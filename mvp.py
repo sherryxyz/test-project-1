@@ -91,3 +91,22 @@ def get_file_content(file_name):
 
 
 # ensure_path_exists('/Users/xueyingzheng/Desktop/python/project1/test_folder/file3.txt')
+
+def analyze_file(file_name):
+    '''
+    file_name (string): the name of the file containing 
+    
+    Returns: line count, word count, space count, and file content
+    '''
+    start_time = time.time()
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line_count = count_lines(file_name)
+    word_count = count_words(file_name)
+    space_count = count_spaces(file_name)
+    content = get_file_content(file_name)
+    end_time = time.time()
+
+    print(f'Test datetime: {timestamp}')
+    print(f'Line count: {line_count}\nWord count: {word_count}\nSpace count: {space_count}')
+    print(f'File content: \n{content}')
+    print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
