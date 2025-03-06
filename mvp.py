@@ -106,7 +106,7 @@ def analyze_file(file_name):
     content = get_file_content(file_name)
     end_time = time.time()
 
-    print(f'Test datetime: {timestamp}')
+    print(f'Datetime: {timestamp}')
     print(f'Line count: {line_count}\nWord count: {word_count}\nSpace count: {space_count}')
     print(f'File content: \n{content}')
     print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
