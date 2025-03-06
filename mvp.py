@@ -110,3 +110,8 @@ def analyze_file(file_name):
     print(f'Line count: {line_count}\nWord count: {word_count}\nSpace count: {space_count}')
     print(f'File content: \n{content}')
     print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
+
+
+if __name__ == "__main__":
+    file_name = input("Enter your file path: ")
+    analyze_file(file_name)
