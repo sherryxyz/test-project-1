@@ -84,8 +84,11 @@ def get_file_content(file_name):
     '''
     start_time = time.time()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # special_character_pattern = r'^[^a-zA-Z0-9\s]+|[^a-zA-Z0-9\s]+$'  # remove special character at the beginning and end (optional)
+
     with open(file_name, 'r') as f:
         content = " ".join(line.strip() for line in f if line.strip())
+        # content = re.sub(special_character_pattern, '', content)
         end_time = time.time()
        # print(f'Test datetime: {timestamp}\nContent: {content}\nExecution Time: {end_time - start_time:.6f} seconds\n')
         return content
