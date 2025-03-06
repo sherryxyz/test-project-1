@@ -31,7 +31,7 @@ def count_lines(file_name):
             if line.strip():  # we don't count empty line, this help check if an line is empty
                 line_cnt += 1
         end_time = time.time()
-        print(f'Test datetime: {timestamp}\nLine count: {line_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
+   #     print(f'Test datetime: {timestamp}\nLine count: {line_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
         return line_cnt
         
 
@@ -53,7 +53,7 @@ def count_words(file_name):
                 if clean_word:
                     word_cnt += 1
         end_time = time.time()
-        print(f'Test datetime: {timestamp}\nWord count: {word_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
+      #  print(f'Test datetime: {timestamp}\nWord count: {word_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
         return word_cnt
         
 
@@ -72,7 +72,7 @@ def count_spaces(file_name):
                 if word.isspace():
                     space_cnt += 1
         end_time = time.time()
-        print(f'Test datetime: {timestamp}\nSpace count: {space_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
+      #  print(f'Test datetime: {timestamp}\nSpace count: {space_cnt}\nExecution Time: {end_time - start_time:.6f} seconds\n')
         return space_cnt
 
 def get_file_content(file_name):
@@ -86,7 +86,7 @@ def get_file_content(file_name):
     with open(file_name, 'r') as f:
         content = " ".join(line.strip() for line in f if line.strip())
         end_time = time.time()
-        print(f'Test datetime: {timestamp}\nContent: {content}\nExecution Time: {end_time - start_time:.6f} seconds\n')
+       # print(f'Test datetime: {timestamp}\nContent: {content}\nExecution Time: {end_time - start_time:.6f} seconds\n')
         return content
 
 
