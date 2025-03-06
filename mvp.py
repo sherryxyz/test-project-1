@@ -119,7 +119,7 @@ def analyze_file(file_name):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:  # Check if exactly one argument is provided
-        print("Please provide at leasat one file name\nUsage: python analyze_file.py <file_name> <file_name> ... <file_name>")
+        print("Please provide at least one file name\nUsage: python analyze_file.py <file_name> <file_name> ... <file_name>")
         sys.exit(1)
 
     for file_name in sys.argv[1:]:  # Get the file name from the command-line argument
