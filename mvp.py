@@ -1,6 +1,7 @@
-import time
-import os
 import re
+import os
+import sys
+import time
 from datetime import datetime
 
 
@@ -106,12 +107,17 @@ def analyze_file(file_name):
     content = get_file_content(file_name)
     end_time = time.time()
 
-    print(f'Datetime: {timestamp}')
+
+    print(f'\nDatetime: {timestamp}')
     print(f'Line count: {line_count}\nWord count: {word_count}\nSpace count: {space_count}')
     print(f'File content: \n{content}')
     print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
 
 
 if __name__ == "__main__":
-    file_name = input("Enter your file path: ")
+    if len(sys.argv) != 2:  # Check if exactly one argument is provided
+        print("Usage: python analyze_file.py <file_name>")
+        sys.exit(1)
+
+    file_name = sys.argv[1]  # Get the file name from the command-line argument
     analyze_file(file_name)
