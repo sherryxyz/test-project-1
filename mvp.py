@@ -172,8 +172,7 @@ def main():
                                      usage=f"{python_cmd} mvp.py analyze <file1> <file2> ... -w <word1> <word2> ...")
 
     # add sub-command and description of available commands
-    subparsers = parser.add_subparsers(dest="mode",
-                                       required=True,
+    subparsers = parser.add_subparsers(dest="command",
                                        title="Available Commands",
                                        description="Select one of the following commands:")
     
@@ -185,7 +184,13 @@ def main():
 
     args = parser.parse_args()
 
-    if args.mode == "analyze":
+    if len(sys.argv) < 1 or args.command is None:
+        print("\n🚨 Error: Missing command.\n")
+        print(f"Usage: {python_cmd} mvp.py analyze <file1> <file2> ... [-w <word1> <word2> ...]")
+        print(f"Run `{python_cmd} mvp.py --help` for more details.\n")
+        sys.exit(1)
+
+    if args.command == "analyze":
         word_list = args.word if args.word else [] # create a word list for arguments
         for file in args.files:
             analyze_file(file, word_list)
