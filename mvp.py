@@ -110,14 +110,16 @@ def count_specific_words(file_name, words):
     # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     special_character = r'[^a-zA-Z0-9]'
-    word_cnt_dict = {word.lower():0 for word in words} # create dict for word to be checked
+    word_cnt_dict = {word:0 for word in words} # create dict for word to be checked
+    word_mapping = {word.lower(): word for word in words} 
 
     with open(file_name, 'r') as f:
         for line in f:
             for w in line.lower().strip().split():
                 clean_word = re.sub(special_character, '', w)
-                if clean_word in word_cnt_dict:
-                    word_cnt_dict[clean_word] += 1
+                if clean_word in word_mapping:
+                    original_word = word_mapping[w]
+                    word_cnt_dict[original_word] += 1
 
     # end_time = time.time()
     return word_cnt_dict
