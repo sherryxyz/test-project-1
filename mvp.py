@@ -168,8 +168,7 @@ def main():
     '''
     Using argparse to implement CLI feature
     '''
-    parser = argparse.ArgumentParser(description="Analyze text files and display statistics",
-                                     usage=f"{python_cmd} mvp.py analyze <file1> <file2> ... -w <word1> <word2> ...")
+    parser = argparse.ArgumentParser(description="Analyze text files and display statistics")
 
     # add sub-command and description of available commands
     subparsers = parser.add_subparsers(dest="command",
