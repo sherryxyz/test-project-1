@@ -177,7 +177,7 @@ def main():
                                        description="Select one of the following commands:")
     
     analyze_parser = subparsers.add_parser("analyze",
-                                            help="Analyze file and display: count lines, words, spaces, content and specific word count")
+                                            help="Analyze file and display: count lines, words, spaces, content and specific word count\nRun `python3 mvp.py analyze --help` for more details")
     
     analyze_parser.add_argument("files", nargs="+", help="File names or file path(s) + file name to be analyzed")
     analyze_parser.add_argument("-w", "--word", nargs="+", help="Count specific words occurrences within the file")
