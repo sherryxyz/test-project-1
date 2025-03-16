@@ -99,7 +99,7 @@ def get_file_content(file_name):
     # print(f'Test datetime: {timestamp}\nContent: {content}\nExecution Time: {end_time - start_time:.6f} seconds\n')
     return content
     
-def count_specific_word(file_name, words):
+def count_specific_words(file_name, words):
     '''
     file_name (string): the name of the file containing 
     words (list): list of specific words to be checked in the file
@@ -111,13 +111,13 @@ def count_specific_word(file_name, words):
 
     special_character = r'[^a-zA-Z0-9]'
     word_cnt_dict = {word.lower():0 for word in words} # create dict for word to be checked
-    for word in words:
-        with open(file_name, 'r') as f:
-            for line in f:
-                for w in line.lower().strip().split():
-                    clean_word = re.sub(special_character, '', w)
-                    if clean_word in word_cnt_dict:
-                        word_cnt_dict[word] += 1
+
+    with open(file_name, 'r') as f:
+        for line in f:
+            for w in line.lower().strip().split():
+                clean_word = re.sub(special_character, '', w)
+                if clean_word in word_cnt_dict:
+                    word_cnt_dict[clean_word] += 1
 
     # end_time = time.time()
     return word_cnt_dict
@@ -141,19 +141,22 @@ def analyze_file(file_name, words=None):
     word_count = count_words(file_name)
     space_count = count_spaces(file_name)
     content = get_file_content(file_name)
-    end_time = time.time()
+    
 
 
     print(f'\nDatetime: {timestamp}')
     print(f'\nAnalyzing file: {file_name}')
     print(f'Line count: {line_count}\nWord count: {word_count}\nSpace count: {space_count}')
-    print(f'File content: \n{content}')
-    print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
+    print(f'File content: \n{content}')    
+
 
     if words and len(words) > 0:
-        word_occurences = count_specific_word(file_name, words)
-        for word, count in word_occurences.items():
-            print(f"Occurences of {word}: {count}")
+        word_occurrences = count_specific_words(file_name, words)
+        for word in words:
+            print(f"Occurances of {word}: {word_occurrences[word]}")
+
+    end_time = time.time()
+    print(f'Execution Time: {end_time - start_time:.6f} seconds\n')
 
 # if __name__ == "__main__":
 #     if len(sys.argv) < 2:  # Check if exactly one argument is provided
@@ -178,7 +181,7 @@ def main():
     analyze_parser = subparsers.add_parser("analyze",
                                             help="Analyze file and display: count lines, words, spaces, content and specific word count\nRun `python3 mvp.py analyze --help` for more details")
     
-    analyze_parser.add_argument("files", nargs="+", help="File names or file path(s) + file name to be analyzed")
+    analyze_parser.add_argument("files", nargs="+", help="File path(s) to be analyzed")
     analyze_parser.add_argument("-w", "--word", nargs="+", help="Count specific words occurrences within the file")
 
     args = parser.parse_args()
@@ -193,6 +196,7 @@ def main():
         word_list = args.word if args.word else [] # create a word list for arguments
         for file in args.files:
             analyze_file(file, word_list)
+
 
 
 if __name__ == "__main__":
