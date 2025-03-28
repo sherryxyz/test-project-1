@@ -14,11 +14,27 @@ def format_primary_key(res: dict) -> None:
 
 def format_nulls(res: dict) -> None:
     """
-    Format output for null value check.
-    Prints column name and number of nulls.
+    Format null value check results as a clean table:
+        Column                  Nulls
+        ------------------------------
+        order_date              912345
+        delivery_date           854287
     """
-    for item in res.get("columns_with_null", []):
-        print(f"             ↪ {item['column']}: {item['nulls']} nulls")
+    nulls = res.get("columns_with_null", [])
+    if not nulls:
+        return
+
+    max_col_len = max(len("Column"), max(len(item["column"]) for item in nulls))
+    null_header = "Nulls"
+
+    print(f"             {'Column'.ljust(max_col_len)}  {null_header}")
+    print(f"             {'-' * max_col_len}  {'-' * len(null_header)}")
+
+    for item in nulls:
+        col = item["column"].ljust(max_col_len)
+        count = str(item["nulls"])
+        print(f"             {col}  {count}")
+
 
 
 def format_basic_stats(res: dict) -> None:
