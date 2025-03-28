@@ -5,10 +5,11 @@ from colorama import Fore, Style
 def format_primary_key(res: dict) -> None:
     """
     Format output for primary key uniqueness check.
-    Prints number of duplicate records found.
+    Prints number of PK violations if available.
     """
-    dup_count = res.get("duplicate_count")
-    print(f"             ↪ duplicate_count: {dup_count}")
+    cnt = res.get("pk_violation_cnt")
+    if cnt is not None:
+        print(f"             ↪ pk_violation_cnt: {cnt}")
 
 
 def format_nulls(res: dict) -> None:
@@ -25,8 +26,12 @@ def format_basic_stats(res: dict) -> None:
     Format output for basic table stats check.
     Prints row count and column count.
     """
-    print(f"             ↪ row_count: {res.get('row_count')}")
-    print(f"             ↪ column_count: {res.get('column_count')}")
+    row_count = res.get("row_count")
+    column_count = res.get("column_count")
+    if row_count is not None:
+        print(f"             ↪ row_count: {row_count}")
+    if column_count is not None:
+        print(f"             ↪ column_count: {column_count}")
 
 
 def format_error(res: dict) -> None:
@@ -92,7 +97,18 @@ class ResultFormatter:
                 "INFO": "ℹ️",
             }.get(status, "")
 
-            print(f"[{status:<10}]  {check:<25} {symbol}")
+            # Color-coded status tag
+            color_status = {
+                "PASS": Fore.GREEN,
+                "FAIL": Fore.RED,
+                "ERROR": Fore.RED,
+                "SKIPPED": Fore.YELLOW,
+                "HAS_NULLS": Fore.YELLOW,
+                "NO_NULLS": Fore.GREEN,
+                "INFO": Fore.CYAN,
+            }.get(status, Style.RESET_ALL)
+
+            print(f"{color_status}[{status:<10}]  {check:<25} {symbol}{Style.RESET_ALL}")
 
             # Select formatter based on check or fallback to status
             formatter = FORMATTER_MAP.get(check) or FORMATTER_MAP.get(status, format_nothing)
